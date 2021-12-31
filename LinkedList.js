@@ -54,12 +54,39 @@ class LinkedList {
         return console.log(list)
     }
 
-    insert(index, value){
+    traverseToIndex(index){
+        let counter = 0;
+        let currentNode = this.head
+        while(counter !== index){
+            currentNode = currentNode.next;
+            counter++;
+        }
+        return currentNode;
+    }
 
+    insert(index, value){
+        if(index >= this.length){
+            return console.log('Invalid index')
+        }
+        const node = {
+            value,
+            next: null
+        }
+        const leader = this.traverseToIndex(index - 1);
+        const pointer = leader.next;
+        leader.next = node;
+        node.next = pointer;
+        this.length++;
     }
 
     remove(index){
-
+        if(index >= this.length){
+            return console.log('Invalid index')
+        }
+        const leader = this.traverseToIndex(index - 1)
+        const unwantedNode = leader.next;
+        leader.next = unwantedNode.next;
+        this.length--;
     }
 }
 
@@ -67,4 +94,7 @@ const newList = new LinkedList(10);
 newList.append(5);
 newList.append(16);
 newList.prepend(2);
+newList.insert(2, 99)
 newList.returnList()
+newList.remove(3);
+newList.returnList();
