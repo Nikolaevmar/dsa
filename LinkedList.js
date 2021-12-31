@@ -16,7 +16,8 @@ class LinkedList {
     constructor(value){
         this.head = {
             value,
-            next: null
+            next: null,
+            prev: null
         }
         this.tail = this.head;
         this.length = 1; //optional
@@ -25,8 +26,10 @@ class LinkedList {
     append(value){ //O(1)
         const node = {
             value,
-            next: null
+            next: null,
+            prev: null
         };
+        node.prev = this.tail;
         this.tail.next = node;
         this.tail = node;
         this.length++;
@@ -36,9 +39,11 @@ class LinkedList {
     prepend(value){ //O(1)
         const node = {
             value,
-            next: null
+            next: null,
+            prev: null
         }
         node.next = this.head;
+        this.head.prev = node;
         this.head = node;
         this.length++;
         return console.log(this)
@@ -70,12 +75,15 @@ class LinkedList {
         }
         const node = {
             value,
-            next: null
+            next: null,
+            prev: null
         }
         const leader = this.traverseToIndex(index - 1);
-        const pointer = leader.next;
+        const follower = leader.next;
         leader.next = node;
-        node.next = pointer;
+        node.prev = leader;
+        node.next = follower;
+        follower.prev = node;
         this.length++;
     }
 
