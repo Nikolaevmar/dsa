@@ -96,6 +96,23 @@ class LinkedList {
         leader.next = unwantedNode.next;
         this.length--;
     }
+
+    reverse(){
+        if(!this.head.next){
+            return this.head;
+        }
+        let first = this.head;
+        this.tail = this.head;
+        let second = first.next;
+        while(second){
+            let tempVar = second.next;
+            second.next = first;
+            first = second;
+            second = tempVar;
+        }
+        this.head.next = null;
+        this.head = first;
+    }
 }
 
 const newList = new LinkedList(10);
@@ -105,4 +122,6 @@ newList.prepend(2);
 newList.insert(2, 99)
 newList.returnList()
 newList.remove(3);
+newList.returnList();
+newList.reverse()
 newList.returnList();
